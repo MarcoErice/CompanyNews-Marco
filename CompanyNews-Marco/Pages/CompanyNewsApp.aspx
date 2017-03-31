@@ -12,8 +12,8 @@
     <title></title>
 
     <link href="../Content/App.css" rel="stylesheet" />
-    <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/jquery-3.1.1.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/moment.min.js"></script>
     <script type="text/javascript">
 
@@ -22,7 +22,7 @@
         // Load the required SharePoint libraries
         $(document).ready(function () {
             //Get the URI decoded URLs.
-            hostweburl = decodeURIComponent(getQueryStringParameter("SPHostUrl"));
+            hostweburl = decodeURIComponent(getQueryStringParameter("SPHostUrl")) + "/CompanyNewsSite";
             appweburl = decodeURIComponent(getQueryStringParameter("SPAppWebUrl"));
             // resources are in URLs in the form: web_url/_layouts/15/resource
             var scriptbase = hostweburl + "/_layouts/15/";
@@ -35,7 +35,7 @@
             var executor = new SP.RequestExecutor(appweburl);
             // Deals with the issue the call against the app web.
             executor.executeAsync({
-                url: appweburl + "/_api/SP.AppContextSite(@target)/web/lists/getbytitle('Posts')/items?@target='" + hostweburl + "/blog'&$top=5",
+                url: appweburl + "/_api/SP.AppContextSite(@target)/web/lists/getbytitle('CompanyNewsList')/items?@target='" + hostweburl + "'&$top=5",
                 method: "GET",
                 headers: { "Accept": "application/json; odata=verbose" },
                 success: successHandler,
@@ -50,9 +50,18 @@
             var results = jsonObject.d.results;
             items.push("<ul>");
             $(results).each(function () {
+
+                var createdDay = moment(this.Created).format("YYYY-MM-DD");
+
                 items.push('<li>' +
                     // this.Title +
-                    "<a href=\"" + hostweburl + "/blog/Lists/Posts/Post.aspx?ID=" + this.ID + "\" target=\"_blank\">" + this.Title + "</a>" +
+                    "<a href=\"" + hostweburl + "/Lists/CompanyNewsList/DispForm.aspx?ID=" + this.ID + "\" target=\"_blank\">" + this.Title + "</a>" +
+                    "<div>" +
+                    createdDay +
+                    "</div>" +
+                    "<div>" +
+                    this.Category +
+                    "</div>" +
                     '</li>');
             });
             items.push("</ul");
