@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package dslVersion="1.0.0.0" 
+        Id="31e354e6-13b1-4d4e-9bc1-cb8ecdbb2dd6" 
+        solutionId="31e354e6-13b1-4d4e-9bc1-cb8ecdbb2dd6" 
+        xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel" 
+        name="CompanyNews_Marco"
+        sharePointProductVersion="16.0">
+  <features>
+        <featureReference itemId="617beb8e-263a-4f91-8d33-d3d5985a047c" />
+  </features>
+</package>
