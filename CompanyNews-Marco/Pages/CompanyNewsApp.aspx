@@ -1,9 +1,10 @@
 ﻿<%-- Copyright marco_erice@hotmail.com --%>
 
-<%@ Page language="C#" Inherits="Microsoft.SharePoint.WebPartPages.WebPartPage, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
-<%@ Register Tagprefix="SharePoint" Namespace="Microsoft.SharePoint.WebControls" Assembly="Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
-<%@ Register Tagprefix="Utilities" Namespace="Microsoft.SharePoint.Utilities" Assembly="Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
-<%@ Register Tagprefix="WebPartPages" Namespace="Microsoft.SharePoint.WebPartPages" Assembly="Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<%@ Page Language="C#" Inherits="Microsoft.SharePoint.WebPartPages.WebPartPage, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+
+<%@ Register TagPrefix="SharePoint" Namespace="Microsoft.SharePoint.WebControls" Assembly="Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<%@ Register TagPrefix="Utilities" Namespace="Microsoft.SharePoint.Utilities" Assembly="Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<%@ Register TagPrefix="WebPartPages" Namespace="Microsoft.SharePoint.WebPartPages" Assembly="Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
 
 <WebPartPages:AllowFraming ID="AllowFraming" runat="server" />
 
@@ -15,25 +16,26 @@
     <script src="../Scripts/jquery-3.1.1.min.js"></script>
     <script src="../Scripts/bootstrap.min.js"></script>
     <script src="../Scripts/moment.min.js"></script>
+    <%--<script src="../Scripts/App.js"></script>--%>
     <script type="text/javascript">
 
         var hostweburl;
         var appweburl;
-        // Load the required SharePoint libraries
+
         $(document).ready(function () {
-            //Get the URI decoded URLs.
-            hostweburl = decodeURIComponent(getQueryStringParameter("SPHostUrl")) + "/CompanyNewsSite";
+
+            hostweburl = decodeURIComponent(getQueryStringParameter("SPHostUrl")) + "/CompanyNewsSite";  // + "/subsite"
             appweburl = decodeURIComponent(getQueryStringParameter("SPAppWebUrl"));
-            // resources are in URLs in the form: web_url/_layouts/15/resource
+
             var scriptbase = hostweburl + "/_layouts/15/";
-            // Load the js files and continue to the successHandler
+
             $.getScript(scriptbase + "SP.RequestExecutor.js", execCrossDomainRequest);
         });
-        // Function to prepare and issue the request to get SharePoint data
+
         function execCrossDomainRequest() {
-            // executor: The RequestExecutor object Initialize the RequestExecutor with the app web URL.
+
             var executor = new SP.RequestExecutor(appweburl);
-            // Deals with the issue the call against the app web.
+
             executor.executeAsync({
                 url: appweburl + "/_api/SP.AppContextSite(@target)/web/lists/getbytitle('CompanyNewsList')/items?@target='" + hostweburl + "'&$top=5",
                 method: "GET",
@@ -43,7 +45,7 @@
             }
             );
         }
-        // Function to handle the success event. Prints the data to the page.
+
         function successHandler(data) {
             var jsonObject = JSON.parse(data.body);
             var items = [];
@@ -51,10 +53,9 @@
             items.push("<ul>");
             $(results).each(function () {
 
-                var createdDay = moment(this.Created).format("YYYY-MM-DD");
+                var createdDay = moment(this.Created).format("YYYY-MM-DD"); // so that the date appears in correct format
 
                 items.push('<li>' +
-                    // this.Title +
                     "<a href=\"" + hostweburl + "/Lists/CompanyNewsList/DispForm.aspx?ID=" + this.ID + "\" target=\"_blank\">" + this.Title + "</a>" +
                     "<div>" +
                     createdDay +
@@ -62,12 +63,13 @@
                     "<div>" +
                     this.Category +
                     "</div>" +
+                    "</br>" +
                     '</li>');
             });
             items.push("</ul");
             $("#listResult").html(items.join(''))
         }
-        // Function to handle the error event. Prints the error message to the page.
+
         function errorHandler(data, errorCode, errorMessage) {
             document.getElementById("internal").innerText = "Could not complete cross-domain call: " + errorMessage;
         }
@@ -83,7 +85,6 @@
             }
         }
     </script>
-
 
 </head>
 <body>

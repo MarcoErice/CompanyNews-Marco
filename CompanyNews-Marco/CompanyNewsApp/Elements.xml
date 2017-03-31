@@ -1,15 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
-  <ClientWebPart Name="CompanyNewsApp" Title="CompanyNewsApp Title" Description="CompanyNewsApp Description" DefaultWidth="300" DefaultHeight="200">
+  <ClientWebPart Name="CompanyNewsApp" Title="CompanyNewsApp-Marco" Description="CompanyNewsApp Description" DefaultWidth="500" DefaultHeight="500">
 
     <!-- Content element identifies the location of the page that will render inside the client web part
          Properties are referenced on the query string using the pattern _propertyName_
          Example: Src="~appWebUrl/Pages/ClientWebPart1.aspx?Property1=_property1_" -->
-    <Content Type="html" Src="~appWebUrl/Pages/CompanyNewsApp.aspx?{StandardTokens}" />
+    <Content Type="html" Src="~appWebUrl/Pages/CompanyNewsApp.aspx?{StandardTokens}&amp;MyBoolean=_MyBoolean_&amp;MyBoolean2=_MyBoolean2_" />
 
     <!-- Define properties in the Properties element.
          Remember to put Property Name on the Src attribute of the Content element above. -->
     <Properties>
+      
+      <Property Name="MyBoolean"
+             Type="boolean"
+             WebBrowsable="true"
+             WebDescription="Description goes here"
+             RequiresDesignerPermission="true"
+             WebCategory="Date font-style"
+             WebDisplayName="Change the date font-style."
+             DefaultValue="false"
+                >
+      </Property>
+      <Property Name="MyBoolean2"
+              Type="boolean"
+              WebBrowsable="true"
+              WebDescription="Description goes here"
+              RequiresDesignerPermission="true"
+              WebCategory="Category view"
+              WebDisplayName="Toggle Category view."
+              DefaultValue="false"
+                >
+      </Property>
+    
     </Properties>
 
   </ClientWebPart>

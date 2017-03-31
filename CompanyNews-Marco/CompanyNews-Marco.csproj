@@ -45,10 +45,6 @@
     <None Include="CompanyNewsApp\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{dc2fc251-1a9f-468a-8297-398da14487f5}</SharePointProjectItemId>
     </None>
-    <None Include="Content\bootstrap-theme.css.map" />
-    <None Include="Content\bootstrap-theme.min.css.map" />
-    <None Include="Content\bootstrap.css.map" />
-    <None Include="Content\bootstrap.min.css.map" />
     <None Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="fonts\glyphicons-halflings-regular.ttf" />
     <None Include="fonts\glyphicons-halflings-regular.woff" />
@@ -60,9 +56,6 @@
     <Content Include="CompanyNewsApp\Elements.xml">
       <OpcRelationship>feature-elementmanifest</OpcRelationship>
     </Content>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Elements.xml" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
